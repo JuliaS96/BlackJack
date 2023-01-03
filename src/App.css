@@ -1,5 +1,6 @@
 .App {
   max-width: 860px;
+  height: 80vh;
   margin: 40px auto;
 }
 
@@ -17,15 +18,34 @@ button:hover {
   background: rgb(110, 23, 209);
   color: #fff;
 }
-
 .game-title {
   font-size: 1.9em;
   margin-bottom: 30px;
 }
-
 .card-grid {
   margin-top: 40px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 20px;
+  display: block;
+  height: 60vh;
+  width: 100%;
+}
+.currency {
+  display: inline-block;
+}
+.currency::before{
+  content: '$';
+}
+.bets {
+  padding: 10px 20px;
+  margin-bottom: 20px;
+}
+.chip {
+  padding: 10px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50px;
+  border-width:7px;
+  margin-left: 10px;
+}
+.start {
+  margin-top: 15px;
 }

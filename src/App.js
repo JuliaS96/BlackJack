@@ -62,9 +62,10 @@ const cardImages = [
 function App() {
   const [playerScore, setPlayerScore] = useState(0)
   const [dealerScore, setDealerScore] = useState(0)
-
+  const [bank, setBank] = useState(1000)
   const [cards, setCards] = useState([])
   const [turns, setTurns] = useState(0)
+  const [bet, setBet] = useState(0)
   
   // shuffle cards
 const shuffleCards = () => {
@@ -79,8 +80,11 @@ const shuffleCards = () => {
      }
 
     setCards(shuffledCards)
-    console.log(shuffledCards)
     setTurns(0)
+    setBank(1000)
+    setBet(0)
+    setPlayerScore(0)
+    setDealerScore(0)
 }
 
 
@@ -96,6 +100,7 @@ const shuffleCards = () => {
 
   }
 
+
   return (
     <div className="App">
       <header className="App-header">
@@ -103,15 +108,20 @@ const shuffleCards = () => {
         <button onClick={shuffleCards}>New Game</button>
 
         <div className='card-grid'>
-          {cards.map(card => (
-            <SingleCard 
-              key={card.src}
-              card={card}
-              handleChoice={handleChoice}/>
-          ))}
+        Place Bet:
+        <div className='bets'>
+          <button className='chip' onClick={() => {setBet(prevBet => prevBet + 1)}}>1</button>
+          <button className='chip' onClick={() => {setBet(prevBet => prevBet + 5)}}>5</button>
+          <button className='chip' onClick={() => {setBet(prevBet => prevBet + 25)}}>25</button>
+          <button className='chip' onClick={() => {setBet(prevBet => prevBet + 50)}}>50</button>
+          <button className='chip' onClick={() => {setBet(prevBet => prevBet + 100)}}>100</button>
+        </div>
+          Bet: ${bet}
+          <br/>
+          <button className='start'>Start</button>
         </div>
       </header>
-      <div className='score'>Points: {turns}</div>
+      <div className='score'>Bank: <p className='currency'>{bank.toLocaleString('en')}</p></div>
     </div>
   ); 
 }
