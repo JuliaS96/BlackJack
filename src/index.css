@@ -5,6 +5,7 @@ body {
   font-family: Prosto One, sans-serif;
   font-size: 1.5em;
   text-align: center;
+  text-shadow: 2px 2px 4px rgb(208, 0, 255), 0 0 1em rgb(49, 13, 107), 0 0 0.2em rgb(63, 11, 106);
   background: rgb(2, 47, 21);
   color: #fff
 }

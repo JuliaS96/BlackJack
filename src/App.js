@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
+import { PlayingField } from './components/PlayingField';
 import { SingleCard } from './components/SingleCard.js'
 
 
@@ -14,9 +15,9 @@ const cardImages = [
   {"src": "/img/8_of_clubs.png", value: 8, coat: "clubs"},
   {"src": "/img/9_of_clubs.png", value: 9, coat: "clubs"},
   {"src": "/img/10_of_clubs.png", value: 10, coat: "clubs"},
-  {"src": "/img/jack_of_clubs2.png", value: 11, coat: "clubs"},
-  {"src": "/img/queen_of_clubs2.png", value: 12, coat: "clubs"},
-  {"src": "/img/king_of_clubs2.png", value: 13, coat: "clubs"},
+  {"src": "/img/jack_of_clubs2.png", value: 10, coat: "clubs"},
+  {"src": "/img/queen_of_clubs2.png", value: 10, coat: "clubs"},
+  {"src": "/img/king_of_clubs2.png", value: 10, coat: "clubs"},
   {"src": "/img/ace_of_hearts.png", value: 1, coat: "hearts"},
   {"src": "/img/2_of_hearts.png", value: 2, coat: "hearts"},
   {"src": "/img/3_of_hearts.png", value: 3, coat: "hearts"},
@@ -27,9 +28,9 @@ const cardImages = [
   {"src": "/img/8_of_hearts.png", value: 8, coat: "hearts"},
   {"src": "/img/9_of_hearts.png", value: 9, coat: "hearts"},
   {"src": "/img/10_of_hearts.png", value: 10, coat: "hearts"},
-  {"src": "/img/jack_of_hearts2.png", value: 11, coat: "hearts"},
-  {"src": "/img/queen_of_hearts2.png", value: 12, coat: "hearts"},
-  {"src": "/img/king_of_hearts2.png", value: 13, coat: "hearts"},
+  {"src": "/img/jack_of_hearts2.png", value: 10, coat: "hearts"},
+  {"src": "/img/queen_of_hearts2.png", value: 10, coat: "hearts"},
+  {"src": "/img/king_of_hearts2.png", value: 10, coat: "hearts"},
   {"src": "/img/ace_of_diamonds.png", value: 1, coat: "diamonds"},
   {"src": "/img/2_of_diamonds.png", value: 2, coat: "diamonds"},
   {"src": "/img/3_of_diamonds.png", value: 3, coat: "diamonds"},
@@ -40,9 +41,9 @@ const cardImages = [
   {"src": "/img/8_of_diamonds.png", value: 8, coat: "diamonds"},
   {"src": "/img/9_of_diamonds.png", value: 9, coat: "diamonds"},
   {"src": "/img/10_of_diamonds.png", value: 10, coat: "diamonds"},
-  {"src": "/img/jack_of_diamonds.png", value: 11, coat: "diamonds"},
-  {"src": "/img/queen_of_diamonds.png", value: 12, coat: "diamonds"},
-  {"src": "/img/king_of_diamonds.png", value: 13, coat: "diamonds"},
+  {"src": "/img/jack_of_diamonds.png", value: 10, coat: "diamonds"},
+  {"src": "/img/queen_of_diamonds.png", value: 10, coat: "diamonds"},
+  {"src": "/img/king_of_diamonds.png", value: 10, coat: "diamonds"},
   {"src": "/img/ace_of_spades.png", value: 1, coat: "spades"},
   {"src": "/img/2_of_spades.png", value: 2, coat: "spades"},
   {"src": "/img/3_of_spades.png", value: 3, coat: "spades"},
@@ -53,9 +54,9 @@ const cardImages = [
   {"src": "/img/8_of_spades.png", value: 8, coat: "spades"},
   {"src": "/img/9_of_spades.png", value: 9, coat: "spades"},
   {"src": "/img/10_of_spades.png", value: 10, coat: "spades"},
-  {"src": "/img/jack_of_spades2.png", value: 11, coat: "spades"},
-  {"src": "/img/queen_of_spades2.png", value: 12, coat: "spades"},
-  {"src": "/img/king_of_spades2.png", value: 13, coat: "spades"},
+  {"src": "/img/jack_of_spades2.png", value: 10, coat: "spades"},
+  {"src": "/img/queen_of_spades2.png", value: 10, coat: "spades"},
+  {"src": "/img/king_of_spades2.png", value: 10, coat: "spades"},
 
 ]
 
@@ -66,11 +67,12 @@ function App() {
   const [cards, setCards] = useState([])
   const [turns, setTurns] = useState(0)
   const [bet, setBet] = useState(0)
+  const [playing, setPlaying] = useState(false)
   
   // shuffle cards
 const shuffleCards = () => {
    let shuffledCards = [...cardImages]
-    for(let i = 0; i < 52; i++){
+    for(let i = 0; i < 52; i++){ 
       let rand  = Math.round(Math.random()*52)
 
       let tempCard = shuffledCards[rand]
@@ -85,30 +87,33 @@ const shuffleCards = () => {
     setBet(0)
     setPlayerScore(0)
     setDealerScore(0)
+    setPlaying(false)
 }
-
-
-  const handleChoice = (card) => {
-
-  }
 
   useEffect(() => {
     shuffleCards()
   },[])
 
-  const resetTurn = () => {
+
+  const handleStart = () => {
+    if(bet > 0) {
+      setPlaying(true)
+      setBank((prev) => prev - bet)
+    } else {
+
+    }
 
   }
 
 
   return (
     <div className="App">
+      <div></div>
       <header className="App-header">
-        <div className='game-title'>BlackJack</div>
-        <button onClick={shuffleCards}>New Game</button>
-
-        <div className='card-grid'>
-        Place Bet:
+        <div className='game-title'>BlackJack  
+        </div>
+        {!playing && <div className='card-grid'>
+          Place Bet:
         <div className='bets'>
           <button className='chip' onClick={() => {setBet(prevBet => prevBet + 1)}}>1</button>
           <button className='chip' onClick={() => {setBet(prevBet => prevBet + 5)}}>5</button>
@@ -118,10 +123,21 @@ const shuffleCards = () => {
         </div>
           Bet: ${bet}
           <br/>
-          <button className='start'>Start</button>
-        </div>
+          <button className={bet>0 ? 'start' : 'start-active'} onClick={handleStart}>Start</button>
+        </div>}
+        {playing && <div>
+          <PlayingField cards={cards} playerScoreO={playerScore} dealerScoreO={dealerScore}/>
+          </div>}
+        <div className='score'>Bank: <p className='currency'>{bank.toLocaleString('en')}</p></div>
       </header>
-      <div className='score'>Bank: <p className='currency'>{bank.toLocaleString('en')}</p></div>
+      <div className='right-div'>
+      <button 
+          className="start-button" 
+          onClick={shuffleCards}>New Game</button>
+          {playing && <div>Bet: <p className='currency'>{bet.toLocaleString('en')}</p></div>}
+
+      </div>
+
     </div>
   ); 
 }
