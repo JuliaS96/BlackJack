@@ -4,7 +4,9 @@
   display: grid;
   grid-template-columns: 1fr 8fr 1fr;
   box-shadow:inset 0px 0px 60px 20px rgba(0.3,0.3,0.5,0.5);
-
+  background-image: linear-gradient(rgba(4, 30, 7, 0.633), rgba(4, 39, 17, 0.704)), url("../public/img/background.jpeg");
+  background-size: contain;
+  background-size: cover;
 }
 
 button { 
@@ -60,6 +62,15 @@ button:hover {
 }
 .start {
   margin-top: 15px;
+  padding: 10px;
+  margin: 10px;
+  width: 10%;
+}
+.start:hover{
+  margin-top: 15px;
+  padding: 10px;
+  margin: 10px;
+  width: 10%;
 }
 .start-button {
   display: block;
@@ -68,10 +79,34 @@ button:hover {
   height: fit-content;
   width: max-content;
 }
+.start-active{
+  margin-top: 15px;
+  padding: 10px;
+  margin: 10px;
+  width: 10%;
+}
 .start-active:hover {
   margin-top: 15px;
   background: rgb(209, 23, 23);
+  padding: 10px;
+  margin: 10px;
+  width: 10%;
+
 }
 .right-div {
   right: 20px;
+}
+.bet-butts {
+  margin: 20px;
+  padding: 10px;
+}
+.loser{
+  position: relative;
+  top: 30%
+}
+.dealer-won { 
+  text-decoration: underline;
+}
+.dealer-won:hover{
+  size: 140%;
 }

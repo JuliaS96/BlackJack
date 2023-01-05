@@ -11,21 +11,42 @@
   border-radius: 6px;
 }
 
-.card .front {
+.card .front-fixed {
   transform: rotateY(90deg);
   transition: all ease-in 0.2s;
   position: absolute;
 }
 
-.flipped .front {
+.flipped .front-fixed {
   transform: rotateY(0deg);
   transition-delay: 0.2s;
 }
-.card .back{
+.card .back-fixed{
 transition: all ease-in 0.2s;
 transition-delay: 0.2s;
 }
-.flipped .back{
+.flipped .back-fixed {
   transform: rotateY(90deg);
   transition-delay: 0s;
 }
+
+
+.card .front-var {
+  transform: rotateY(90deg);
+  transition: all ease-in 0.2s;
+  position: absolute;
+}
+
+.flipped .front-var {
+  transform: rotateY(0deg);
+  transition-delay: 0.2s;
+} 
+.card .back-var {
+transition: all ease-in 0.2s;
+transition-delay: 0.2s;
+}
+.flipped .back-var {
+  transform: rotateY(90deg);
+  transition-delay: 0s;
+}
+

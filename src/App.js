@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import { PlayingField } from './components/PlayingField';
-import { SingleCard } from './components/SingleCard.js'
 
 
 const cardImages = [
@@ -41,9 +40,9 @@ const cardImages = [
   {"src": "/img/8_of_diamonds.png", value: 8, coat: "diamonds"},
   {"src": "/img/9_of_diamonds.png", value: 9, coat: "diamonds"},
   {"src": "/img/10_of_diamonds.png", value: 10, coat: "diamonds"},
-  {"src": "/img/jack_of_diamonds.png", value: 10, coat: "diamonds"},
-  {"src": "/img/queen_of_diamonds.png", value: 10, coat: "diamonds"},
-  {"src": "/img/king_of_diamonds.png", value: 10, coat: "diamonds"},
+  {"src": "/img/jack_of_diamonds2.png", value: 10, coat: "diamonds"},
+  {"src": "/img/queen_of_diamonds2.png", value: 10, coat: "diamonds"},
+  {"src": "/img/king_of_diamonds2.png", value: 10, coat: "diamonds"},
   {"src": "/img/ace_of_spades.png", value: 1, coat: "spades"},
   {"src": "/img/2_of_spades.png", value: 2, coat: "spades"},
   {"src": "/img/3_of_spades.png", value: 3, coat: "spades"},
@@ -61,48 +60,66 @@ const cardImages = [
 ]
 
 function App() {
-  const [playerScore, setPlayerScore] = useState(0)
-  const [dealerScore, setDealerScore] = useState(0)
   const [bank, setBank] = useState(1000)
   const [cards, setCards] = useState([])
-  const [turns, setTurns] = useState(0)
   const [bet, setBet] = useState(0)
   const [playing, setPlaying] = useState(false)
+  const [replay, setReplay] = useState(0)
+  const [loser, setLoser] = useState(false)
+  const [turn, setTurn] = useState(0)
   
   // shuffle cards
-const shuffleCards = () => {
+const shuffleCards = (bankAmt) => {
    let shuffledCards = [...cardImages]
     for(let i = 0; i < 52; i++){ 
       let rand  = Math.round(Math.random()*52)
-
       let tempCard = shuffledCards[rand]
       shuffledCards[rand] = shuffledCards[i]
       shuffledCards[i] = tempCard
 
      }
-
-    setCards(shuffledCards)
-    setTurns(0)
-    setBank(1000)
-    setBet(0)
-    setPlayerScore(0)
-    setDealerScore(0)
     setPlaying(false)
+    setCards(shuffledCards)
+    setBank(bankAmt)
+    setBet(0)
+    setLoser(false)
+    setTurn(0)
 }
 
+useEffect(() => {
+  if(bank < 1 ){
+    setLoser(true)
+  }
+
+}, [bank])
+
+useEffect(() => {
+  setTurn(1)
+  let shuffledCards = [...cardImages]
+  for(let i = 0; i < 52; i++){ 
+    let rand  = Math.round(Math.random()*52)
+    let tempCard = shuffledCards[rand]
+    shuffledCards[rand] = shuffledCards[i]
+    shuffledCards[i] = tempCard
+
+   }
+   setCards(shuffledCards)
+}, [setPlaying])
+
   useEffect(() => {
-    shuffleCards()
+    shuffleCards(1000)
   },[])
+
+  useEffect(() => {
+    shuffleCards(bank)
+  }, [replay])
 
 
   const handleStart = () => {
     if(bet > 0) {
       setPlaying(true)
-      setBank((prev) => prev - bet)
     } else {
-
     }
-
   }
 
 
@@ -110,30 +127,48 @@ const shuffleCards = () => {
     <div className="App">
       <div></div>
       <header className="App-header">
-        <div className='game-title'>BlackJack  
+        <div className='game-title'>BlackJack
         </div>
-        {!playing && <div className='card-grid'>
+        {!playing && !loser && <div className='card-grid'>
           Place Bet:
         <div className='bets'>
-          <button className='chip' onClick={() => {setBet(prevBet => prevBet + 1)}}>1</button>
-          <button className='chip' onClick={() => {setBet(prevBet => prevBet + 5)}}>5</button>
-          <button className='chip' onClick={() => {setBet(prevBet => prevBet + 25)}}>25</button>
-          <button className='chip' onClick={() => {setBet(prevBet => prevBet + 50)}}>50</button>
-          <button className='chip' onClick={() => {setBet(prevBet => prevBet + 100)}}>100</button>
+          <button className='chip' onClick={() => {setBet(prevBet => Math.min(prevBet + 1, bank))}}>1</button>
+          <button className='chip' onClick={() => {setBet(prevBet => Math.min(prevBet + 5, bank))}}>5</button>
+          <button className='chip' onClick={() => {setBet(prevBet => Math.min(prevBet + 10, bank))}}>25</button>
+          <button className='chip' onClick={() => {setBet(prevBet => Math.min(prevBet + 25, bank))}}>50</button>
+          <button className='chip' onClick={() => {setBet(prevBet => Math.min(prevBet + 100, bank))}}>100</button>
         </div>
-          Bet: ${bet}
+          <button 
+            className='bet-butts'
+            onClick={() => {setBet(0)}}
+            >Clear</button>Bet: ${bet} 
+          <button 
+            className='bet-butts'
+            onClick={() => {setBet(bank)}}>All in</button>
           <br/>
-          <button className={bet>0 ? 'start' : 'start-active'} onClick={handleStart}>Start</button>
+          <button className={bet>0 ? 'start' : 'start-active'} onClick={handleStart}>{bet > 0 ? "Deal" : "Set Bet"}</button>
         </div>}
-        {playing && <div>
-          <PlayingField cards={cards} playerScoreO={playerScore} dealerScoreO={dealerScore}/>
+        {!loser && playing && <div>
+          <PlayingField 
+            cards={cards} 
+            bank={bank}
+            replay={replay}
+            setBank={setBank}
+            setPlaying={setPlaying}
+            bet={bet}/>
           </div>}
+          {loser && 
+            <div className='loser'>
+              <h1 className='finished-field' >House Wins!</h1>
+              
+              Please press <a className='dealer-won' onClick={() => (shuffleCards(1000))}>New Game </a>to try again :) 
+            </div>}
         <div className='score'>Bank: <p className='currency'>{bank.toLocaleString('en')}</p></div>
       </header>
       <div className='right-div'>
       <button 
           className="start-button" 
-          onClick={shuffleCards}>New Game</button>
+          onClick={() => {shuffleCards(1000)}}>New Game</button>
           {playing && <div>Bet: <p className='currency'>{bet.toLocaleString('en')}</p></div>}
 
       </div>

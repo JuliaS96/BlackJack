@@ -1,4 +1,5 @@
 .playing-field {
+  max-width: 1200px;
   height: 100%;
   background-color: rgb(3, 69, 3);
   border-radius: 50px;
@@ -10,7 +11,7 @@
 }
 .field-button {
   position: relative;
-  top: 40%;
+  top: 25%;
   left: 2%;
   right: -1%;
   width: 120px;
@@ -20,13 +21,12 @@
 }
 .right-box {
   display: grid;
-  grid-template-rows: 1fr 4fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  -ms-grid-row-align: center;
   margin: 3px solid white;
   text-align: left;
   text-indent: -1px;
-}
-.right-box .field-button {
-  top:auto;
+  height: 100%;
 }
 .cards-field {
   display: grid;
@@ -34,9 +34,6 @@
 }
 .dealer {
   display: flex;
-  /* display: grid;
-  grid-template-columns: repeat(4, 12fr);
-  position: relative; */
 }
 .player {
   display: flex;
@@ -44,4 +41,37 @@
 .player img {
   position: sticky;
   bottom: 30px;
+}
+.dealer-score{
+  position: relative;
+  top: 50%;
+}
+.player-score{
+  position: relative;
+  top: 20%;
+}
+.finished-field{
+  font-size: 2em;
+  /* text-transform: uppercase; */
+  background-image: linear-gradient(
+    -225deg,
+    #f3ff14 0%,
+    #055722 29%,
+    #ff1361 67%,
+    #09781c 100%
+  );
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 3s linear infinite;
+  text-shadow: 1px 1px 2px rgba(255, 0, 242, 0.35), 0 0 1em rgba(2, 48, 30, 5), 0 0 0.2em rgba(2, 48, 30, 0.5);
+}
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
 }
