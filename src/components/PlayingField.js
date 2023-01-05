@@ -14,33 +14,39 @@ export function PlayingField({cards, bank, setBank, bet, setPlaying}) {
   const [winMessage, setWinMessage] = useState('')
   const [winner, setWinner] = useState(false)
   const [dealerDone, setDealerDone] = useState(false)
+  const [dealerRunning, setDealerRunning] = useState(false)
+  const [maxCard, setMaxCard] = useState(5)
 
   const deal = (num) => {
       const newPlayerCards = [...playerCards, cards[num]]
       setPlayerCards(newPlayerCards) 
+      console.log("player", currentCard)
+      setCurrentCard(prev => prev + 1)
+      setMaxCard(prev => prev+1)
+
 
   }
 
   const dealDealer = (num) => {
     if(dealerScore < 17 && playerScore < 22){
-      const newDealerCards = [...dealerCards, cards[num+1]]
+      const newDealerCards = [...dealerCards, cards[num]]
+      console.log("dealing", num)
       setDealerCards(newDealerCards)
+      setCurrentCard(prev => prev + 1)
     } 
   }
 
   useEffect(() => {
-    dealDealer(currentCard+1)
-    setTimeout(() => {
+      dealDealer(currentCard+1)
+      setTimeout(() => {
       deal(currentCard)
       setFirst(false)
-      setCurrentCard(prev => prev + 2)
     }, 400)
 
   }, [first])
 
   useEffect(() => {
     if(!dealerDone){
-      setCurrentCard(prev => prev + 2)
       calcDealerScore()
       calcPlayerScore()
     }
@@ -68,25 +74,39 @@ export function PlayingField({cards, bank, setBank, bet, setPlaying}) {
     }, [playerScore, dealerScore])
 
   const dealerRun = () => {
-    if(!dealerDone && dealerScore < 18 && playerScore < 22){
-      console.log("running...", dealerScore)
-      dealDealer(currentCard)
-      setCurrentCard(prev => prev + 1)
-      let score = calcDealerScore()
-      setDealerScore(score, () => {
-        if (score < 18) {
-        dealerRun()
-      }
-      })
-      console.log(score,dealerScore)
+    if(flippedDealer){
+      console.log("before: ", dealerScore)
+
+      if(!dealerDone && dealerScore < 18 && playerScore < 22){
+      let sum = dealerCards[0].value + dealerCards[1].value
+      let numCards = 2
+      console.log(sum, dealerCards[0].value, dealerCards[1].value)
+
+      while(sum < 18) {
+        dealDealer(currentCard)
+        sum += cards[currentCard].value
+        numCards ++ 
+        console.log(sum, numCards)
+      } 
+      setDealerRunning(prev => !prev)
+      
+
+    } else {
+      setDealerDone(true)
     }
-    setDealerDone(true)
+    }
   }
 
+  useEffect(()=>{
+    if(flippedDealer){
+      setDealerRunning(prev => !prev)
+    } 
+  }, [dealerScore])
+
+
   useEffect(()=> {
-    calcDealerScore()
     dealerDone ? setWinner(true) : setWinner(winner)
-  },[dealerDone])
+  },[dealerDone, winner])
 
   useEffect(() => {
     if(finishedGame && playerScore < 22 && !dealerDone){
@@ -94,14 +114,18 @@ export function PlayingField({cards, bank, setBank, bet, setPlaying}) {
     } else if (finishedGame){
       setDealerDone(true)
     }
-
-  }, [finishedGame])
+  }, [finishedGame, playerScore, dealerRunning])
 
   useEffect(() => {
     if(dealerDone){
       if(dealerScore > 21){
-        setWinMessage('You win!')
-        setTimeout(() => setBank(bank + bet), 1000)
+        if(playerScore === 21){
+          setWinMessage('BlackJack! You win!')
+          setTimeout(() => setBank(bank + Math.round(1.5*bet)), 1000)
+        } else {
+          setWinMessage('You win!')
+          setTimeout(() => setBank(bank + bet), 1000)
+        }
         setTimeout(() => setPlaying(false), 4000)
       } else if (playerScore > 21) {
         setWinMessage('Dealer wins!')
@@ -112,15 +136,19 @@ export function PlayingField({cards, bank, setBank, bet, setPlaying}) {
         setTimeout(()=> setBank(bank ),1000)
         setTimeout(() => setPlaying(false), 4000)
       } else if (playerScore > dealerScore) {
-        setWinMessage('You win!')
-        setTimeout(() => setBank(bank + bet), 1000)
+        if(playerScore === 21){
+          setWinMessage('BlackJack! You win!')
+          setTimeout(() => setBank(bank + Math.round(1.5*bet)), 1000)
+        } else {
+          setWinMessage('You win!')
+          setTimeout(() => setBank(bank + bet), 1000)
+        }
         setTimeout(() => setPlaying(false), 4000)
       } else {
         setWinMessage('Dealer wins!')
         setTimeout(()=> setBank(bank - bet),1000)
         setTimeout(() => setPlaying(false), 4000)
       }
-    
     
     }
 
@@ -193,7 +221,6 @@ export function PlayingField({cards, bank, setBank, bet, setPlaying}) {
     }
   }
 
-
   return (
     <div className='card-grid'>
       <div className='playing-field'>
@@ -207,7 +234,7 @@ export function PlayingField({cards, bank, setBank, bet, setPlaying}) {
               <SingleCard 
                 key={card.src} 
                 card={card}
-                flipped={!(card.src === cards[2].src)||flippedDealer}
+                flipped={!(index === 0)||flippedDealer}
                 index={index}
                 />
             ))}</div>

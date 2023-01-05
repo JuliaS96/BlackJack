@@ -35,10 +35,10 @@ button:hover {
   margin-bottom: 20px;
 }
 .card-grid {
-  margin-top: 40px;
+  margin-top: 5%;
   display: block;
   margin-right: 20px;
-  height: 75vh;
+  height: 70vh;
   width: 100%;
 }
 .currency {
@@ -55,22 +55,22 @@ button:hover {
   padding: 10px;
   width: 70px;
   height: 70px;
-  border: 1px solid rgb(255, 255, 255);
+  border: 1px dashed rgb(255, 255, 255);
   border-radius: 50px;
-  border-width:7px;
+  border-width: 6px;
   margin-left: 10px;
 }
 .start {
   margin-top: 15px;
   padding: 10px;
   margin: 10px;
-  width: 10%;
+  width: auto;
 }
 .start:hover{
   margin-top: 15px;
   padding: 10px;
   margin: 10px;
-  width: 10%;
+  width: auto;
 }
 .start-button {
   display: block;
@@ -83,14 +83,14 @@ button:hover {
   margin-top: 15px;
   padding: 10px;
   margin: 10px;
-  width: 10%;
+  width: auto;
 }
 .start-active:hover {
   margin-top: 15px;
   background: rgb(209, 23, 23);
   padding: 10px;
   margin: 10px;
-  width: 10%;
+  width: auto;
 
 }
 .right-div {

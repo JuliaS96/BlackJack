@@ -64,7 +64,6 @@ function App() {
   const [cards, setCards] = useState([])
   const [bet, setBet] = useState(0)
   const [playing, setPlaying] = useState(false)
-  const [replay, setReplay] = useState(0)
   const [loser, setLoser] = useState(false)
   const [turn, setTurn] = useState(0)
   
@@ -90,38 +89,30 @@ useEffect(() => {
   if(bank < 1 ){
     setLoser(true)
   }
-
 }, [bank])
 
 useEffect(() => {
-  setTurn(1)
+  setTurn(prev => prev+1)
   let shuffledCards = [...cardImages]
   for(let i = 0; i < 52; i++){ 
     let rand  = Math.round(Math.random()*52)
     let tempCard = shuffledCards[rand]
     shuffledCards[rand] = shuffledCards[i]
     shuffledCards[i] = tempCard
-
    }
    setCards(shuffledCards)
-}, [setPlaying])
+}, [playing])
 
   useEffect(() => {
     shuffleCards(1000)
   },[])
 
-  useEffect(() => {
-    shuffleCards(bank)
-  }, [replay])
-
 
   const handleStart = () => {
     if(bet > 0) {
       setPlaying(true)
-    } else {
-    }
+    } 
   }
-
 
   return (
     <div className="App">
@@ -152,7 +143,6 @@ useEffect(() => {
           <PlayingField 
             cards={cards} 
             bank={bank}
-            replay={replay}
             setBank={setBank}
             setPlaying={setPlaying}
             bet={bet}/>
@@ -161,7 +151,7 @@ useEffect(() => {
             <div className='loser'>
               <h1 className='finished-field' >House Wins!</h1>
               
-              Please press <a className='dealer-won' onClick={() => (shuffleCards(1000))}>New Game </a>to try again :) 
+              Please press <h2 className='dealer-won' onClick={() => (shuffleCards(1000))}>New Game </h2>to try again :) 
             </div>}
         <div className='score'>Bank: <p className='currency'>{bank.toLocaleString('en')}</p></div>
       </header>
