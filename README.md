@@ -1,6 +1,6 @@
 # BlackJack Card Game
 
-This project was created using React and Javascript.
+This project was created using React and Javascript. Currently not supported for phone sized screen, but coming up! :)
 
 ## The Game:
 A simple game of BlackJack. You will play against the computer. 
@@ -13,9 +13,11 @@ An ace can count as either 1 or 11; up to the player's discretion.
 
 Have fun :) 
 
-
-
-
+## TODO
+ might add soft 17 optionality later
+ freeze buttons after game is finished
+ make cards overlap
+ update phone size support
 
 
 

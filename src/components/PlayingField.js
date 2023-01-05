@@ -187,13 +187,19 @@ export function PlayingField({cards, bank, setBank, bet, setPlaying}) {
     }
   }
 
+  const handleHit = () => {
+    if(!finishedGame){
+      deal(currentCard)
+    }
+  }
+
 
   return (
     <div className='card-grid'>
       <div className='playing-field'>
       <div className='right-box'>
           <div className='dealer-score'></div>
-          <button className='field-button' onClick={()=>deal(currentCard)}>Hit</button>
+          <button className='field-button' onClick={handleHit}>Hit</button>
           <div className='player-score'></div>
         </div>
         <div className='cards-field'>
