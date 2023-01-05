@@ -19,7 +19,6 @@ Have fun :)
 
  - make cards overlap
 
-
  - update phone size support
 
 

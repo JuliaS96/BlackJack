@@ -134,8 +134,8 @@ useEffect(() => {
         <div className='bets'>
           <button className='chip' onClick={() => {setBet(prevBet => Math.min(prevBet + 1, bank))}}>1</button>
           <button className='chip' onClick={() => {setBet(prevBet => Math.min(prevBet + 5, bank))}}>5</button>
-          <button className='chip' onClick={() => {setBet(prevBet => Math.min(prevBet + 10, bank))}}>25</button>
-          <button className='chip' onClick={() => {setBet(prevBet => Math.min(prevBet + 25, bank))}}>50</button>
+          <button className='chip' onClick={() => {setBet(prevBet => Math.min(prevBet + 25, bank))}}>25</button>
+          <button className='chip' onClick={() => {setBet(prevBet => Math.min(prevBet + 50, bank))}}>50</button>
           <button className='chip' onClick={() => {setBet(prevBet => Math.min(prevBet + 100, bank))}}>100</button>
         </div>
           <button 
