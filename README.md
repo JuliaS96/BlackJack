@@ -8,13 +8,13 @@ Usual BlackJack rules apply: whoever reaches 21 first, or gets closest to 21 win
 
 If you go over 21 you "bust" and lose automatically.
 
-An ace can count as either 1 or 11; up to the player's discretion.
+The first ace can count as either 1 or 11; whichever helps the player more.
 
 
 Have fun :) 
 
 ## TODO
- - might add soft 17 optionality later
+ - might add soft 17 optionality later; update graphics
 
 
  - make cards overlap
