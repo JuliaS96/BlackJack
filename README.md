@@ -14,10 +14,16 @@ An ace can count as either 1 or 11; up to the player's discretion.
 Have fun :) 
 
 ## TODO
- might add soft 17 optionality later
- freeze buttons after game is finished
- make cards overlap
- update phone size support
+ - might add soft 17 optionality later
+
+
+ - freeze buttons after game is finished
+
+
+ - make cards overlap
+
+
+ - update phone size support
 
 
 
