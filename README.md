@@ -17,9 +17,6 @@ Have fun :)
  - might add soft 17 optionality later
 
 
- - freeze buttons after game is finished
-
-
  - make cards overlap
 
 
