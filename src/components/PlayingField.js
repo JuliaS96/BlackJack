@@ -78,7 +78,7 @@ export function PlayingField({cards, bank, setBank, bet, setPlaying}) {
     try {
       if(flippedDealer){
         console.log("before: ", dealerScore)
-        if(!dealerDone && dealerScore < 18 && playerScore < 22){
+        if(!dealerDone && dealerScore < 17 && playerScore < 22){
         dealDealer(currentCard)
         dealerRunning(prev => !prev)
       } else {
