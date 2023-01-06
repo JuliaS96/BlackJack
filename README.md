@@ -15,10 +15,9 @@ Have fun :)
 
 ## TODO
  - might add soft 17 optionality later; update graphics
-
-
+ - add sound
+ - add rules page
  - make cards overlap
-
  - update phone size support
 
 

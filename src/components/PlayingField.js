@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './PlayingField.css'
 import { SingleCard } from './SingleCard.js'
+import { Mutex } from 'async-mutex'
 
 export function PlayingField({cards, bank, setBank, bet, setPlaying}) {
   const [playerScore, setPlayerScore] = useState(0)
@@ -15,15 +16,13 @@ export function PlayingField({cards, bank, setBank, bet, setPlaying}) {
   const [winner, setWinner] = useState(false)
   const [dealerDone, setDealerDone] = useState(false)
   const [dealerRunning, setDealerRunning] = useState(false)
-  const [maxCard, setMaxCard] = useState(5)
+  const mutex = new Mutex()
+
 
   const deal = (num) => {
       const newPlayerCards = [...playerCards, cards[num]]
       setPlayerCards(newPlayerCards) 
-      console.log("player", currentCard)
       setCurrentCard(prev => prev + 1)
-      setMaxCard(prev => prev+1)
-
 
   }
 
@@ -73,27 +72,20 @@ export function PlayingField({cards, bank, setBank, bet, setPlaying}) {
      }
     }, [playerScore, dealerScore])
 
-  const dealerRun = () => {
-    if(flippedDealer){
-      console.log("before: ", dealerScore)
 
-      if(!dealerDone && dealerScore < 18 && playerScore < 22){
-      let sum = dealerCards[0].value + dealerCards[1].value
-      let numCards = 2
-      console.log(sum, dealerCards[0].value, dealerCards[1].value)
-
-      while(sum < 18) {
+  async function dealerRun() {
+    const release = await mutex.acquire() // acquires access to the critical path
+    try {
+      if(flippedDealer){
+        console.log("before: ", dealerScore)
+        if(!dealerDone && dealerScore < 18 && playerScore < 22){
         dealDealer(currentCard)
-        sum += cards[currentCard].value
-        numCards ++ 
-        console.log(sum, numCards)
-      } 
-      setDealerRunning(prev => !prev)
-      
-
-    } else {
-      setDealerDone(true)
-    }
+        dealerRunning(prev => !prev)
+      } else {
+        setDealerDone(true)
+      }}
+    } finally {
+      release() 
     }
   }
 
