@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.4c42d874.css",
+    "main.css": "/static/css/main.b6ebbbdc.css",
     "main.js": "/static/js/main.81e8fecd.js",
-    "static/media/DALL10.png": "/static/media/DALL10.fc0d169f3e90fcb43a2f.png",
+    "static/media/black.jpg": "/static/media/black.e8d9aeefc5788e331f12.jpg",
     "index.html": "/index.html",
-    "main.4c42d874.css.map": "/static/css/main.4c42d874.css.map",
+    "main.b6ebbbdc.css.map": "/static/css/main.b6ebbbdc.css.map",
     "main.81e8fecd.js.map": "/static/js/main.81e8fecd.js.map"
   },
   "entrypoints": [
-    "static/css/main.4c42d874.css",
+    "static/css/main.b6ebbbdc.css",
     "static/js/main.81e8fecd.js"
   ]
 }

@@ -4,7 +4,7 @@
   display: grid;
   grid-template-columns: 1fr 8fr 1fr;
   box-shadow:inset 0px 0px 40px 20px rgba(0.2,0.2,0.2,0.2);
-  background-image: linear-gradient(rgba(4, 30, 7, 0.633), rgba(4, 39, 17, 0.704)), url("../public/img/DALL10.png");
+  background-image: linear-gradient(rgba(4, 30, 7, 0.309), rgba(4, 39, 17, 0.499)), url("../public/img/black.jpg");
   background-size: contain;
   background-size: cover;
 }
@@ -13,7 +13,7 @@ button {
   height: fit-content;
   width: max-content;
   margin-top:15px ;
-  background: rgb(2, 94, 21);
+  background: rgba(2, 94, 20, 0.702);
   border: 2px solid rgb(2, 62, 14);
   padding: 6px 12px;
   border-radius: 8px;
