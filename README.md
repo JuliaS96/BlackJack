@@ -19,6 +19,7 @@ Have fun :)
  - add rules page
  - make cards overlap
  - update phone size support
+ - add a high score list
 
 
 
