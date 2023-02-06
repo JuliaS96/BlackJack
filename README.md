@@ -25,6 +25,11 @@ Have fun :)
 
 
 
+
 Use "yarn start" to run locally
+
+
 Use "npm run build" to build project
+
+
 Use "npm run deploy" to deploy to GitHub pages
