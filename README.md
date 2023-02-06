@@ -29,7 +29,7 @@ Have fun :)
 
 
 
-
+## To run
 
 - Use "yarn start" to run locally
 
